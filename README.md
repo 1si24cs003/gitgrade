@@ -14,6 +14,9 @@ A GitHub repository is a developer’s real portfolio, but students often strugg
 
 GitGrade solves this by acting as an AI mentor, giving honest feedback and actionable steps based purely on repository data.
 
+Introduction:https://www.canva.com/design/DAG7e-n6_n8/DnEHq8gF_PGHgYY4YpqoYA/view?utm_content=DAG7e-n6_n8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he51a06a921
+
+Presentation:https://www.canva.com/design/DAG7e2vm1lY/gVnJ1rruoEKuCOjfKW1P8Q/view?utm_content=DAG7e2vm1lY&utm_campaign=designshare&utm_medium=link&utm_source=viewer
 
 ✨ Key Features
   -🔗 Accepts any public GitHub repository URL
@@ -151,3 +154,4 @@ Create .env.local:
 GitGrade acts as a mirror for developers, reflecting strengths and weaknesses of a GitHub repository and guiding them toward becoming better engineers.
 
 ⭐ If you like this project, don’t forget to star the repository!
+

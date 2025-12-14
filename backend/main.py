@@ -6,30 +6,56 @@ from analyzer import analyze_repo
 from scorer import calculate_score
 from ai_feedback import generate_summary, generate_roadmap
 
-# ✅ CREATE APP FIRST
-app = FastAPI(title="GitGrade API")
+# -----------------------------
+# App initialization
+# -----------------------------
+app = FastAPI(
+    title="GitGrade API",
+    description="AI-powered GitHub Repository Analyzer",
+    version="1.0.0"
+)
 
-# ✅ ADD CORS
+# -----------------------------
+# ✅ CORS CONFIGURATION (FIX)
+# -----------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],  # Allow all origins (OK for hackathon/demo)
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ✅ REQUEST MODEL
+# -----------------------------
+# Request model
+# -----------------------------
 class RepoRequest(BaseModel):
     repo_url: str
 
-# ✅ ROUTE (AFTER app IS DEFINED)
+# -----------------------------
+# Root route (optional but helpful)
+# -----------------------------
+@app.get("/")
+def root():
+    return {"message": "GitGrade Backend is running"}
+
+# -----------------------------
+# Analyze repository endpoint
+# -----------------------------
 @app.post("/analyze")
 def analyze(request: RepoRequest):
     try:
-        data = analyze_repo(request.repo_url)
-        score = calculate_score(data)
+        repo_url = request.repo_url
 
-        summary = generate_summary(data, score)
-        roadmap = generate_roadmap(data)
+        # Analyze GitHub repository
+        analysis_data = analyze_repo(repo_url)
+
+        # Calculate score
+        score = calculate_score(analysis_data)
+
+        # Generate AI feedback
+        summary = generate_summary(analysis_data, score)
+        roadmap = generate_roadmap(analysis_data)
 
         return {
             "score": score,
@@ -38,7 +64,6 @@ def analyze(request: RepoRequest):
         }
 
     except Exception as e:
-        # Never crash the API
         return {
             "score": 0,
             "summary": "Failed to analyze repository.",
